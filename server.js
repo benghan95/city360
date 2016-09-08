@@ -45,20 +45,20 @@ function handleError(res, reason, message, code) {
  *    POST: creates a new project
  */
 
-app.get("/projects", function(req, res){
-  db.collection(PROJECTS_COLLECTION).find({}).toArray(function(err.docs){
-    if(err){
-      handleError(res, err.message, "Failed to retrieve projects.");
-    } else{
-      res.status(200).json(docs);
-    }
-  });
-});
+// app.get("/projects", function(req, res){
+//   db.collection(PROJECTS_COLLECTION).find({}).toArray(function(err.docs){
+//     if(err){
+//       handleError(res, err.message, "Failed to retrieve projects.");
+//     } else{
+//       res.status(200).json(docs);
+//     }
+//   });
+// });
 
-app.post("/projects", function(req, res){
-  var newProject = req.body;
-  newProject.createDate = new Date();
-});
+// app.post("/projects", function(req, res){
+//   var newProject = req.body;
+//   newProject.createDate = new Date();
+// });
 
 // CONTACTS API ROUTES BELOW
 
