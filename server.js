@@ -4,6 +4,7 @@ var bodyParser = require("body-parser");
 var mongodb = require("mongodb");
 var ObjectID = mongodb.ObjectID;
 
+var PROJECTS_COLLECTION = "projects";
 var CONTACTS_COLLECTION = "contacts";
 
 var app = express();
@@ -29,6 +30,34 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
     var port = server.address().port;
     console.log("App now running on port", port);
   });
+});
+
+// PROJECTS API ROUTES BELOW
+
+// Generic error handler used by all endpoints.
+function handleError(res, reason, message, code) {
+  console.log("ERROR: " + reason);
+  res.status(code || 500).json({"error": message});
+}
+
+/*  "/projects"
+ *    GET: finds all projects
+ *    POST: creates a new project
+ */
+
+app.get("/projects", function(req, res){
+  db.collection(PROJECTS_COLLECTION).find({}).toArray(function(err.docs){
+    if(err){
+      handleError(res, err.message, "Failed to retrieve projects.");
+    } else{
+      res.status(200).json(docs);
+    }
+  });
+});
+
+app.post("/projects", function(req, res){
+  var newProject = req.body;
+  newProject.createDate = new Date();
 });
 
 // CONTACTS API ROUTES BELOW
