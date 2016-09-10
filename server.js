@@ -45,20 +45,61 @@ function handleError(res, reason, message, code) {
  *    POST: creates a new project
  */
 
-// app.get("/projects", function(req, res){
-//   db.collection(PROJECTS_COLLECTION).find({}).toArray(function(err.docs){
-//     if(err){
-//       handleError(res, err.message, "Failed to retrieve projects.");
-//     } else{
-//       res.status(200).json(docs);
-//     }
-//   });
-// });
+app.get("/projects", function(req, res){
+  db.collection(PROJECTS_COLLECTION).find({}).toArray(function(err.docs){
+    if(err){
+      handleError(res, err.message, "Failed to retrieve projects.");
+    } else{
+      res.status(200).json(docs);
+    }
+  });
+});
 
-// app.post("/projects", function(req, res){
-//   var newProject = req.body;
-//   newProject.createDate = new Date();
-// });
+app.post("/projects", function(req, res){
+  var newProject = req.body;
+  newProject.createDate = new Date();
+
+  if (!(req.body.title)) {
+    handleError(res, "Invalid user input", "Please provide a project title.", 400);
+  }
+
+  if (!(req.body.description)) {
+    handleError(res, "Invalid user input", "Please add in a description for the project.", 400);
+  }
+
+  if (!(req.body.category)) {
+    handleError(res, "Invalid user input", "Please define at least one category for the project.", 400);
+  }
+
+  if (!(req.body.location)) {
+    handleError(res, "Invalid user input", "Please state the location that the project will be carried out.", 400);
+  }
+
+  db.collection(PROJECTS_COLLECTION).insertOne(newProject, function(err, doc) {
+    if (err) {
+      handleError(res, err.message, "Failed to create new contact.");
+    } else {
+      res.status(201).json(doc.ops[0]);
+    }
+  });
+});
+
+/*  "/projects/:id"
+ *    GET: find project by id
+ *    PUT: update project by id
+ *    DELETE: deletes project by id
+ */
+
+app.get("/projects/:id", function(req, res) {
+  db.collection(PROJECTS_COLLECTION).findOne({ _id: new ObjectID(req.params.id) }, function(err, doc) {
+    if (err) {
+      handleError(res, err.message, "Failed to get project");
+    } else {
+      res.status(200).json(doc);
+    }
+  });
+});
+
 
 // CONTACTS API ROUTES BELOW
 

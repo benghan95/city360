@@ -1,0 +1,59 @@
+<!-- <div class="row project-card">
+  <div class="col-md-6 project-title">
+    <h3>{{ project.title }}</h3>
+  </div>
+  <div class="project-desc">
+    <p>{{ project.description }}</p>
+  </div>
+  <div class="col-md-3">
+  </div>
+  <div class="col-md-2">
+    <a href="#/"><button style="margin-top:20px" class="btn btn-default" ng-click="deleteContact(contact._id)">Delete</button></a>
+  </div>
+  <div class="col-md-1">
+  </div>
+</div>
+<div ng-hide="editMode" class="container">
+  <div>
+    <p ng-if="contact.email">email: <a ng-href="mailto:{{ contact.email }}" target="_blank">{{ contact.email }}</a></p>
+    <p ng-if="contact.phone.mobile">phone (m): {{ contact.phone.mobile }} </p>
+    <p ng-if="contact.phone.work">phone (w): {{ contact.phone.work }} </p>
+    <p ng-if="contact.address"> address: {{ contact.address }} </p>
+    <p ng-if="contact.twitter"> twitter: <a ng-href="https://twitter.com/{{ contact.twitter }}" target="_blank">@{{ contact.twitter }}</a></p>
+    <p>
+      <button style="margin-top:20px" class="btn btn-default" ng-click="toggleEdit()">Edit</button>
+      <a style="margin-top:20px" class="btn btn-default" href="#/">Back</a>
+    </p>
+  </div>
+</div> -->
+<!-- Contact form -->
+<!-- <div ng-include="contactFormUrl">
+</div> -->
+
+<div class="row project-card">
+  <div class="container project-card-container">
+    <div class="project-title">
+      <h3>{{ project.title }}</h3>
+    </div>
+    <div class="project-excerpts">
+      <p id="project_desc">{{ project.description }}</p>
+    </div>
+    <div class="project-categories">
+      <p ng-if="project.categories">
+        <p ng-repeat="category in categories">
+          {{ category }}
+        </p>
+      </p>
+    </div>
+    <div class="read-more">
+      <btn class="btn read-more-btn" ng-click="getProject(project._id)">
+        Read More
+      </btn>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  var projectDesc = $('#project_desc');
+
+  projectDesc.text(project_desc.text().substring(0, 50) + '...');
+</script>
