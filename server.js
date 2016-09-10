@@ -8,7 +8,7 @@ var PROJECTS_COLLECTION = "projects";
 var CONTACTS_COLLECTION = "contacts";
 
 var app = express();
-app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname + "/www"));
 app.use(bodyParser.json());
 
 // Create a database variable outside of the database connection callback to reuse the connection pool in your app.
@@ -46,7 +46,7 @@ function handleError(res, reason, message, code) {
  */
 
 app.get("/projects", function(req, res){
-  db.collection(PROJECTS_COLLECTION).find({}).toArray(function(err, docs){
+  db.collection(PROJECTS_COLLECTION).find({}).toArray(function(err,docs){
     if(err){
       handleError(res, err.message, "Failed to retrieve projects.");
     } else{
