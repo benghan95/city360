@@ -46,7 +46,7 @@ function handleError(res, reason, message, code) {
  */
 
 app.get("/projects", function(req, res){
-  db.collection(PROJECTS_COLLECTION).find({}).toArray(function(err.docs){
+  db.collection(PROJECTS_COLLECTION).find({}).toArray(function(err, docs){
     if(err){
       handleError(res, err.message, "Failed to retrieve projects.");
     } else{
