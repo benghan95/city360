@@ -1,0 +1,117 @@
+<div class="row" ng-hide="project._id">
+  <div class="col-md-6">
+      <h2>Create new project</h2>
+  </div>
+</div>
+<div class="container project-form">
+  <div>
+    <p>
+      <label>Project Title*</label> 
+      <input id="title" class="form-control" type="text" ng-model="project.title" required> 
+    </p>
+    <p>
+      <label>Project Description*</label> 
+      <input id="description" class="form-control" type="text" ng-model="project.description" required> 
+    </p>
+    <p>
+      <label>Location that the project will be carried out*</label> 
+      <input id="location" class="form-control ui-autocomplete-input ui-corner-all" type="text" ng-model="project.location" required> 
+    </p>
+    <div class="input-daterange input-group" id="datepicker">
+      <label>Project Timeline</label> 
+      <input id="project_startDate" class="input-sm form-control" type="text" name="start" ng-model="project.date.startDate"/>
+      <span class="input-group-addon">to</span>
+      <input id="project_endDate" class="input-sm form-control" type="text" name="end" ng-model="project.date.endDate"/>
+    </div>
+    <p>
+      <label>Project Duration</label> 
+      <input id="duration" class="form-control" type="text" ng-model="project.date.duration"> 
+    </p>
+    <p>
+      <label>Project Categories</label> 
+      <input id="category" class="form-control" type="text" ng-model="project.categories"> 
+    </p>
+    <p>
+      <label>Manpower Required</label> 
+      <input id="manpower" class="form-control" type="number" ng-model="project.manpower.amount"> 
+    </p>
+    <p>
+      <label>Participation Requirement</label> 
+      <input id="participation_requirement" class="form-control" type="text" ng-model="project.manpower.requirement"> 
+    </p>
+    <p>
+      <label>Contact Number</label> 
+      <input id="contact_number" class="form-control" type="text" ng-model="project.contact.number"> 
+    </p>
+    <p>
+      <label>Contact Email</label> 
+      <input id="contact_email" class="form-control" type="text" ng-model="project.contact.email"> 
+    </p>
+    <p>
+      <label>Project Website</label> 
+      <input id="website" class="form-control" type="text" ng-model="project.website"> 
+    </p>
+    <p>
+      <label>Facebook Link</label> 
+      <input id="social_media" class="form-control" type="text" ng-model="project.social_media.facebook"> 
+    </p>
+    <p>
+      <label>Twitter Link</label> 
+      <input id="social_media" class="form-control" type="text" ng-model="project.social_media.twitter"> 
+    </p>
+    <p>
+      <label>Youtube Link</label> 
+      <input id="social_media" class="form-control" type="text" ng-model="project.social_media.youtube"> 
+    </p>
+    <p>
+      <label>Instagram Link</label> 
+      <input id="social_media" class="form-control" type="text" ng-model="project.social_media.instagram"> 
+    </p>
+    <p>
+      <button style="margin-top:20px" class="btn btn-default" ng-click="saveContact(contact)">Save</button>
+      <button style="margin-top:20px" class="btn btn-default" ng-click="back()">Back</button>
+    </p>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $('.datepicker').datepicker();
+  $('.input-daterange').datepicker({
+    startDate: "today"
+  });
+</script>
+<script type="text/javascript">
+  $(function() {
+    function log( message ) {
+      $( "<div>" ).text( message ).prependTo( "#log" );
+      $( "#log" ).scrollTop( 0 );
+    }
+ 
+    $( "#location" ).autocomplete({
+      source: function( request, response ) {
+        $.ajax({
+          url: "http://gd.geobytes.com/AutoCompleteCity",
+          dataType: "jsonp",
+          data: {
+            q: request.term
+          },
+          success: function( data ) {
+            response( data );
+          }
+        });
+      },
+      minLength: 3,
+      select: function( event, ui ) {
+        log( ui.item ?
+          "Selected: " + ui.item.label :
+          "Nothing selected, input was " + this.value);
+      },
+      open: function() {
+        $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+      },
+      close: function() {
+        $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+      }
+    });
+  });
+  </script>
