@@ -35,6 +35,6 @@ angular.module("city360App", ['ngRoute'])
     $scope.projects = projects.data;
   })
 
-angular.module("multipleSelectModule", [
-  'multipleSelect'
-  ]);
+// angular.module("multipleSelectModule", [
+//   'multipleSelect'
+//   ]);
